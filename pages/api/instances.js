@@ -10,10 +10,12 @@ const config = {
 const client = new EC2Client(config);
 
 export default async function handler(req, res) {
-  const response = await client.send(new DescribeInstancesCommand());
-  if (response) {
-    res.status(200).json({ data: response });
-  } else {
+  console.log('In instances function');
+  try {
+    const response = await client.send(new DescribeInstancesCommand({}));
+    res.status(200).json({ data: response.Reservations });
+  } catch (err) {
+    console.log(err);
     res.status(503).json({ data: 'Error getting instances' });
   }
 }
