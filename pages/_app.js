@@ -1,4 +1,4 @@
-import '@cloudscape-design/global-styles/index.css';
+import '@cloudscape-design/global-styles';
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;
