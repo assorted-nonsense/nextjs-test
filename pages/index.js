@@ -1,16 +1,20 @@
 import * as React from 'react';
-import {
-  SpaceBetween,
-  ContentLayout,
-  Header,
-  Container,
-  Table,
-  Box,
-  Button,
-  Pagination,
-  CollectionPreferences,
-  TextFilter,
-} from '@cloudscape-design/components';
+// import {
+//   SpaceBetween,
+//   ContentLayout,
+//   Header,
+//   Container,
+//   Table,
+//   Box,
+//   Button,
+//   Pagination,
+//   CollectionPreferences,
+//   TextFilter,
+// } from '@cloudscape-design/components';
+
+import ContentLayout from '@cloudscape-design/components/content-layout';
+import Header from '@cloudscape-design/components/header';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 
 export default function Home() {
   const [selectedItems, setSelectedItems] = React.useState([
