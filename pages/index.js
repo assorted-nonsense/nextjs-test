@@ -1,15 +1,13 @@
-import {
-  ContentLayout,
-  SpaceBetween,
-  Header,
-  Container,
-  Table,
-  Box,
-  Button,
-  Pagination,
-  CollectionPreferences,
-  TextFilter,
-} from '@cloudscape-design/components';
+import ContentLayout from '@cloudscape-design/components/content-layout';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import Header from '@cloudscape-design/components/header';
+import Container from '@cloudscape-design/components/container';
+import Table from '@cloudscape-design/components/table';
+import Box from '@cloudscape-design/components/box';
+import Button from '@cloudscape-design/components/button';
+import Pagination from '@cloudscape-design/components/pagination';
+import CollectionPreferences from '@cloudscape-design/components/collection-preferences';
+import TextFilter from '@cloudscape-design/components/text-filter';
 export default function Home() {
   return (
     <ContentLayout
