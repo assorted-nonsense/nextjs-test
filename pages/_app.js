@@ -1,3 +1,4 @@
+import React from 'react';
 import '@cloudscape-design/global-styles';
 
 if (typeof window === 'undefined') React.useLayoutEffect = () => {};
