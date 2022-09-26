@@ -25,7 +25,7 @@ export default function Home() {
         </SpaceBetween>
       }
     >
-      <Container
+      {/* <Container
         header={
           <Header variant='h2' description='Container description'>
             Container header
@@ -195,7 +195,7 @@ export default function Home() {
             />
           }
         />
-      </Container>
+      </Container> */}
     </ContentLayout>
   );
 }
