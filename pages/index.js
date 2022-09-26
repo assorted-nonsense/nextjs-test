@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import {
   SpaceBetween,
   ContentLayout,
@@ -12,20 +12,12 @@ import {
   TextFilter,
 } from '@cloudscape-design/components';
 
-// import ContentLayout from '@cloudscape-design/components/content-layout';
-// import Header from '@cloudscape-design/components/header';
-// import SpaceBetween from '@cloudscape-design/components/space-between';
-
-export default function Home() {
-  const [selectedItems, setSelectedItems] = React.useState([
-    { name: 'Item 2' },
-  ]);
-
+const Home = ({ instances }) => {
   return (
     <ContentLayout
       header={
         <SpaceBetween size='m'>
-          <Header>List EC2 Instances</Header>
+          <Header>List EC3 Instances</Header>
         </SpaceBetween>
       }
     >
@@ -37,41 +29,23 @@ export default function Home() {
         }
       >
         <Table
-          onSelectionChange={({ detail }) =>
-            setSelectedItems(detail.selectedItems)
-          }
-          selectedItems={selectedItems}
-          ariaLabels={{
-            selectionGroupLabel: 'Items selection',
-            allItemsSelectionLabel: ({ selectedItems }) =>
-              `${selectedItems.length} ${
-                selectedItems.length === 1 ? 'item' : 'items'
-              } selected`,
-            itemSelectionLabel: ({ selectedItems }, item) => {
-              const isItemSelected = selectedItems.filter(
-                (i) => i.name === item.name,
-              ).length;
-              return `${item.name} is ${isItemSelected ? '' : 'not'} selected`;
-            },
-          }}
           columnDefinitions={[
             {
               id: 'variable',
               header: 'Variable name',
-              cell: (e) => e.name,
+              cell: (item) => item.name || '-',
               sortingField: 'name',
             },
             {
-              id: 'value',
+              id: 'alt',
               header: 'Text value',
-              cell: (e) => e.alt,
+              cell: (item) => item.alt || '-',
               sortingField: 'alt',
             },
-            { id: 'type', header: 'Type', cell: (e) => e.type },
             {
               id: 'description',
               header: 'Description',
-              cell: (e) => e.description,
+              cell: (item) => item.description || '-',
             },
           ]}
           items={[
@@ -119,9 +93,7 @@ export default function Home() {
             },
           ]}
           loadingText='Loading resources'
-          selectionType='multi'
-          trackBy='name'
-          visibleColumns={['variable', 'value', 'type', 'description']}
+          sortingDisabled
           empty={
             <Box textAlign='center' color='inherit'>
               <b>No resources</b>
@@ -131,75 +103,29 @@ export default function Home() {
               <Button>Create resource</Button>
             </Box>
           }
-          filter={
-            <TextFilter
-              filteringPlaceholder='Find resources'
-              filteringText=''
-            />
-          }
-          header={
-            <Header
-              counter={
-                selectedItems.length
-                  ? '(' + selectedItems.length + '/10)'
-                  : '(10)'
-              }
-            >
-              Table with common features
-            </Header>
-          }
-          pagination={
-            <Pagination
-              currentPageIndex={1}
-              pagesCount={2}
-              ariaLabels={{
-                nextPageLabel: 'Next page',
-                previousPageLabel: 'Previous page',
-                pageLabel: (pageNumber) => `Page ${pageNumber} of all pages`,
-              }}
-            />
-          }
-          preferences={
-            <CollectionPreferences
-              title='Preferences'
-              confirmLabel='Confirm'
-              cancelLabel='Cancel'
-              preferences={{
-                pageSize: 10,
-                visibleContent: ['variable', 'value', 'type', 'description'],
-              }}
-              pageSizePreference={{
-                title: 'Select page size',
-                options: [
-                  { value: 10, label: '10 resources' },
-                  { value: 20, label: '20 resources' },
-                ],
-              }}
-              visibleContentPreference={{
-                title: 'Select visible content',
-                options: [
-                  {
-                    label: 'Main distribution properties',
-                    options: [
-                      {
-                        id: 'variable',
-                        label: 'Variable name',
-                        editable: false,
-                      },
-                      { id: 'value', label: 'Text value' },
-                      { id: 'type', label: 'Type' },
-                      {
-                        id: 'description',
-                        label: 'Description',
-                      },
-                    ],
-                  },
-                ],
-              }}
-            />
-          }
+          header={<Header> Simple table </Header>}
         />
       </Container>
     </ContentLayout>
   );
+};
+
+export async function getServerSideProps() {
+  console.log('Getting Instances');
+  const endpoint = '/api/instances';
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response = await fetch(endpoint, options);
+  const result = await response.json();
+  return {
+    props: {
+      instances: results,
+    },
+  };
 }
+
+export default Home;
