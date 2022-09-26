@@ -10,7 +10,7 @@ frontend:
         - nvm use $VERSION_NODE_16
         - npm run build
   artifacts:
-    baseDirectory: .next
+    baseDirectory: out
     files:
       - '**/*'
   cache:
