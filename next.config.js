@@ -1,10 +1,14 @@
-/** @type {import('next').NextConfig} */
+const withTranspileModules = require('next-transpile-modules');
+const withPlugins = require('next-compose-plugins');
+
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
-  images: {
-    unoptimized: true,
+  compiler: {
+    styledComponents: true,
   },
 };
 
-module.exports = nextConfig;
+module.exports = withPlugins(
+  [withTranspileModules(['@cloudscape-design/components'])],
+  nextConfig,
+);

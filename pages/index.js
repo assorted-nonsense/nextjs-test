@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   SpaceBetween,
   ContentLayout,
@@ -12,6 +13,10 @@ import {
 } from '@cloudscape-design/components';
 
 export default function Home() {
+  const [selectedItems, setSelectedItems] = React.useState([
+    { name: 'Item 2' },
+  ]);
+
   return (
     <ContentLayout
       header={
