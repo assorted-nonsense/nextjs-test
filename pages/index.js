@@ -1,25 +1,23 @@
-import { useState, useEffect } from 'react';
 import {
   SpaceBetween,
   ContentLayout,
   Header,
-  Container,
   Table,
   Spinner,
-} from '@cloudscape-design/components';
-import useSWR from 'swr';
+} from "@cloudscape-design/components";
+import useSWR from "swr";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Home = () => {
-  const { data, error } = useSWR('/api/instances', fetcher);
+  const { data, error } = useSWR("/api/instances", fetcher);
 
-  if (error) return 'Error';
+  if (error) return "Error";
 
   return (
     <ContentLayout
       header={
-        <SpaceBetween size='m'>
+        <SpaceBetween size="m">
           <Header>Instance Page</Header>
         </SpaceBetween>
       }
@@ -28,21 +26,21 @@ const Home = () => {
         <Table
           columnDefinitions={[
             {
-              id: 'id',
-              header: 'Instance ID',
-              cell: (item) => item.id || '-',
-              sortingField: 'name',
+              id: "id",
+              header: "Instance ID",
+              cell: (item) => item.id || "-",
+              sortingField: "name",
             },
             {
-              id: 'type',
-              header: 'Instance Type',
-              cell: (item) => item.type || '-',
-              sortingField: 'alt',
+              id: "type",
+              header: "Instance Type",
+              cell: (item) => item.type || "-",
+              sortingField: "alt",
             },
             {
-              id: 'imageId',
-              header: 'Image ID',
-              cell: (item) => item.imageId || '-',
+              id: "imageId",
+              header: "Image ID",
+              cell: (item) => item.imageId || "-",
             },
           ]}
           items={data.data.map((instance) => instance)}
@@ -50,7 +48,7 @@ const Home = () => {
           header={<Header> Instance table </Header>}
         />
       )}
-      {!data && <Spinner size='large' />}
+      {!data && <Spinner size="large" />}
     </ContentLayout>
   );
 };
